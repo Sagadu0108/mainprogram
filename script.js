@@ -5,11 +5,11 @@ const dislike = document.querySelector('#dislike');
 
 // constants
 const urls = [
-  './image/s1.jpg',
-    './image/s2.jpg', 
-    './image/s3.jpg',
-    './image/s4.jpg',
-    './image/s5.jpg'
+  './s1.jpg',
+    './s2.jpg', 
+    './s3.jpg',
+    './s4.jpg',
+    './s5.jpg'
 ];
 
 // variables
