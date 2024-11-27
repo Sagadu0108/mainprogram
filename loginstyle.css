@@ -1,267 +1,102 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700');
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-body{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh; 
-    background: url('./image/tinder2.jpg') no-repeat;
-    background-size: cover;
-    background-position: center;
+html,
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 }
 
-header{
-    position: fixed ;
-    top : 0;    
-    left : 0;
-    width: 1600px;
-    padding: 20px 100px;
-    /*background: #ff6666;*/
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 99;
-    
+body {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background: linear-gradient(0deg, rgb(255, 96, 54), rgb(253, 38, 122)) no-repeat;
 }
-.tinder{
-    font-size: 2.5em;
-    color: #ffffff;
-    user-select: none;   
-}
-.heart {
+
+#swiper {
+  height: 70vh;
+  aspect-ratio: 2 / 3;
+  perspective: 1000px;
+  perspective-origin: center 50%;
+  transform-style: preserve-3d;
   position: relative;
-  left: 10px;
-  top: .5px;  
-  vertical-align: middle;
-}
-.navigation a {
-    position: relative;
-    font-size: 1.1em;
-    color : #ffffff;
-    text-decoration: none;
-    font-weight: 500;
-    margin-left : 40px;
 }
 
-.navigation a::after{
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -6px;
-    width: 100%;
-    height: 3px;
-    background: #ff3366;
-    border-radius: 5px;
-    transform-origin: right;
-    transform: scaleX(0);
-    transition: transform .5s;
+.card {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  border-radius: 20px;
+  overflow: hidden;
+  transform: translateZ(calc(-30px * var(--i))) translateY(calc(-20px * var(--i))) rotate(calc(-4deg * var(--i)));
+  filter: drop-shadow(2px 2px 20px rgba(0, 0, 0, 0.5));
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.5s;
 }
 
-.navigation a:hover::after{
-    transform-origin: left;
-    transform: scaleX(1);
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
 }
 
-.navigation .btnLogin-popup{ 
-    width: 130px;
-    height: 50px;
-    background: transparent;
-    border: 2px solid #ffffff;
-    outline: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 1.1em;
-    color: #ffffff;
-    font-weight: 500;
-    margin-left: 40px;
-    transition: .5s;
-}
-.navigation .btnLogin-popup:hover{
-    background: #ff3366;
-    color: #ffffff;
-}
-.wrapper{
-    position: relative;
-    width: 400px;
-    height: 440px;
-    background: transparent;
-    border: 2px solid rgba(255,255,255,.5) ;
-    border-radius: 20px;
-    backdrop-filter: blur(20px);
-    box-shadow: 0 0 30px rgba(0,0,0,1);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    transform: scale(0);
-    transition: height .2s ease; 
+#like,
+#dislike {
+  font-size: 16vh;
+  border-radius: 50%;
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+  animation-name: animation1;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: both;
+  /* don't run animation at the beginning */
+  animation-play-state: paused;
 }
 
-.wrapper.icon-close {
-    transform: scale(0);
+#like.trigger,
+#dislike.trigger {
+  animation-name: animation2;
 }
 
-.wrapper.active-popup {
-    transform: scale(1);
+#like {
+  color: red;
+  background-color: rgba(255, 255, 255, 0.5);
 }
 
-.wrapper.active {
-    height: 520px;
+#dislike {
+  color: #ccc;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
-.wrapper .form-box{
-    width: 100%;
-    padding: 40px;
+@keyframes animation1 {
+
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+
+  50% {
+    opacity: 1;
+  }
 }
 
-.wrapper .form-box.login{
-    transition: transform  .18s ease;
-    transform: translateX(0);
-}
+@keyframes animation2 {
 
-.wrapper.active .form-box.login {
-    transition: none;
-    transform: translateX(-400px);
-}
+  0%,
+  100% {
+    opacity: 0.2;
+  }
 
-.wrapper .form-box.register{
-    position: absolute;
-    transition: none; 
-    transform: translateX(400px); 
-}
-
-.wrapper.active .form-box.register{
-    transition: transform  .18s ease;
-    transform: translateX(0);
-}
-
-.wrapper .icon-close {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 45px;
-    height: 45px;
-    background: black;
-    font-size: 2em;
-    color: #ff3366;
-    display: flex;
-    justify-content: center;
-    align-items: center; 
-    border-bottom-left-radius: 20px;
-    cursor: pointer;
-    z-index: 1;
-}
-/*login*/
-.form-box h2{
-    font-size: 2em;
-    color: #ff3366;
-    text-align: center;
-}
-
-.input-box {
-    position: relative;
-    width: 100%;
-    height: 50px;
-    border-bottom: 2px solid #ffffff;
-    margin: 30px 0 ;
-    
-}
-
-.input-box label{
-    position: absolute;
-    top: 50%;
-    left: 5px;
-    transform: translateY(-50%);
-    font-size: 1em;
-    color: #ff3366;
-    font-weight: 500;
-    pointer-events: none;
-    transition: .5s;
-}
-
-.input-box input:focus~label,
-.input-box input:valid~label{
-    top: -5px;
-}
-
-.input-box input{
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    border: none;
-    outline: none;
-    font-size: 1em;
-    color: #ff3366;
-    font-weight: 600;
-    padding: 0 35px 0 5px;
-}
-
-.input-box .icon{
-    position: absolute;
-    right: 8px;
-    font-size: 1.2em;
-    color: #ff3366;
-    line-height: 57px;
-}
-
-.remember-forgot{
-    font-size: .9em;
-    color: #ffffff;
-    font-weight: 500;
-    margin: -15px 0 15px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.remember-forgot label input{
-    accent-color: #ff3366; 
-    margin-right: 3px;
-    
-}
-
-.remember-forgot a{
-    color: #ffffff;
-    text-decoration: none;
-}
-
-.remember-forgot a:hover{
-    text-decoration: underline;
-}
-
-.btn {
-    width: 100%;
-    height: 45px;
-    background: #ff3366;
-    border: none;
-    outline: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 1em;
-    color: #ffffff;
-    font-weight: 500;
-    
-}
-
-.login-register{
-    font-size: .9em;
-    color: #ffffff;
-    text-align: center;
-    font-weight: 500;
-    margin: 25px 0 10px;
-}
-
-.login-register p a{
-    color: #ff3366;
-    text-decoration: none;
-    font-weight: 700;
-}
-
-.login-register p a:hover{
-    text-decoration: underline;
+  50% {
+    opacity: 1;
+  }
 }
