@@ -1,3 +1,3 @@
 # tinder.github.io
 
-online demo :  https://tinderthanhxuan.github.io/card-swiper/
+online demo :  https://sagadu.github.io/tindertx/
